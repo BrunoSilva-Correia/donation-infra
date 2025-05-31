@@ -26,8 +26,8 @@ Este projeto consiste em um sistema de administração de doações e beneficiá
 
 1. Clone os repositórios
 
-- donation-manager (https://github.com/BrunoSilva-Correia/donation-manager)
-- donation-admin (https://github.com/BrunoSilva-Correia/donation-admin)
+- donation-manager (git clone https://github.com/BrunoSilva-Correia/donation-manager.git)
+- donation-admin (https://github.com/BrunoSilva-Correia/donation-admin.git)
 
 2. Certifique-se de que todas as portas necessárias estão disponíveis:
    - 3000 (Frontend)
