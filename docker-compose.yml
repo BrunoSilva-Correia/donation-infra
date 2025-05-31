@@ -1,0 +1,57 @@
+services:
+  donation-manager:
+    container_name: donation-manager
+    build:
+      context: ./donation-manager
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "3002:3002"
+    env_file:
+      - ./donation-manager/.env
+    environment:
+      - PORT=3002
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/donation_manager
+
+    depends_on:
+      - db
+    networks:
+      - donation-network
+
+  donation-admin:
+    container_name: donation-admin
+    build:
+      context: ./donation-admin
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+    depends_on:
+      - donation-manager
+      - db
+    networks:
+      - donation-network
+
+  db:
+    container_name: donation-db
+    image: postgres:15
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=donation_manager
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - donation-network
+
+networks:
+  donation-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
